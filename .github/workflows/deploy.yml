@@ -32,6 +32,30 @@ jobs:
         docker build -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-west-2.amazonaws.com/spookymart-frontend:${{ github.sha }} ./frontend-service
         docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-west-2.amazonaws.com/spookymart-frontend:${{ github.sha }}
         
+        docker build -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-west-2.amazonaws.com/spookymart-product-service:${{ github.sha }} ./product-service
+        docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-west-2.amazonaws.com/spookymart-product-service:${{ github.sha }}
+        
+        docker build -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-west-2.amazonaws.com/spookymart-order-service:${{ github.sha }} ./order-service
+        docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-west-2.amazonaws.com/spookymart-order-service:${{ github.sha }}
+        
+    - name: Deploy Product Service
+      uses: aws-actions/amazon-ecs-deploy-express-service@v1
+      with:
+        service-name: spookymart-product-service
+        image: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-west-2.amazonaws.com/spookymart-product-service:${{ github.sha }}
+        execution-role-arn: ${{ secrets.ECS_EXECUTION_ROLE_ARN }}
+        infrastructure-role-arn: ${{ secrets.ECS_INFRASTRUCTURE_ROLE_ARN }}
+        container-port: 3001
+        
+    - name: Deploy Order Service
+      uses: aws-actions/amazon-ecs-deploy-express-service@v1
+      with:
+        service-name: spookymart-order-service
+        image: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-west-2.amazonaws.com/spookymart-order-service:${{ github.sha }}
+        execution-role-arn: ${{ secrets.ECS_EXECUTION_ROLE_ARN }}
+        infrastructure-role-arn: ${{ secrets.ECS_INFRASTRUCTURE_ROLE_ARN }}
+        container-port: 3002
+        
     - name: Deploy Frontend
       uses: aws-actions/amazon-ecs-deploy-express-service@v1
       with:

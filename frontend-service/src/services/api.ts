@@ -2,8 +2,8 @@
 
 import { Product, Order, Customer, ApiResponse } from '../types';
 
-// Use environment variable for API URL, fallback to ALB URL
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://spookymart-alb-1978027172.us-west-2.elb.amazonaws.com';
+// Use environment variable for API URL, fallback to ECS Express URL
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://sp-427290f0791a4ec8b9a2c15c192ee581.ecs.us-west-2.on.aws';
 
 class ApiService {
   private async fetchApi<T>(endpoint: string, options?: RequestInit): Promise<ApiResponse<T>> {

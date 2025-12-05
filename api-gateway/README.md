@@ -8,6 +8,7 @@ The API Gateway service acts as the central entry point for the SpookyMart ecomm
 - **Rate Limiting**: Protects backend services from abuse
 - **Security**: Implements CORS, Helmet security headers
 - **Logging**: Comprehensive request/response logging with Winston
+- **Auto-deployment**: Deployed via GitHub Actions on changes
 - **Health Checks**: Monitors downstream service health
 - **Compression**: Reduces response payload sizes
 - **Error Handling**: Graceful error responses and service unavailability handling

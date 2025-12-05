@@ -13,9 +13,6 @@ RUN npm install
 # Copy source code
 COPY . .
 
-# Set environment variable for production build
-ENV REACT_APP_API_URL=http://spookymart-alb-1978027172.us-west-2.elb.amazonaws.com
-
 # Build the application
 RUN npm run build
 
@@ -44,9 +41,9 @@ USER spookymart
 # Expose port 8080
 EXPOSE 8080
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+# Health check - check if serve is responding
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
   CMD curl -f http://localhost:8080/ || exit 1
 
 # Start serve to serve the static files
-CMD ["serve", "-s", "build", "-l", "8080"]
+CMD ["serve", "-s", "build", "-l", "8080", "--no-clipboard"]

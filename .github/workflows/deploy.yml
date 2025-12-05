@@ -39,3 +39,4 @@ jobs:
         image: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-west-2.amazonaws.com/spookymart-frontend:${{ github.sha }}
         execution-role-arn: ${{ secrets.ECS_EXECUTION_ROLE_ARN }}
         infrastructure-role-arn: ${{ secrets.ECS_INFRASTRUCTURE_ROLE_ARN }}
+        port: 8080

@@ -3,6 +3,10 @@ name: Deploy to ECS Express
 on:
   push:
     branches: [main]
+    paths: 
+      - 'frontend-service/**'
+      - 'product-service/**'
+      - 'order-service/**'
   workflow_dispatch:
 
 env:
